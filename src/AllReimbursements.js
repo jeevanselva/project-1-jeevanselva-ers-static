@@ -69,8 +69,8 @@ rows = props.rows
               <StyledTableCell align="right">{row.description}</StyledTableCell>
               <StyledTableCell align="right">{row.dateSubmitted}</StyledTableCell>
               <StyledTableCell align="right">{row.status}</StyledTableCell>
-              <StyledTableCell align="right">{row.resolvedId}</StyledTableCell>
-              <StyledTableCell align="right">{row.resId}</StyledTableCell>
+              <StyledTableCell align="right">{row.dateResolved}</StyledTableCell>
+              <StyledTableCell align="right">{row.resolverId}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
