@@ -5,16 +5,19 @@ import Employee from './Employee.js';
 
  export default class Main extends React.Component {
   constructor(props){
-  super(props);
+  super(props)
+  this.state = {
+    currentUser: this.props.currentUser 
+  };
   }
 
 
   render(){
 if (this.props.currentUser.userRole==='manager'){
-  return <Manager/>
+  return <Manager currentUser={this.state.currentUser}/>
 }
 else if (this.props.currentUser.userRole==='employee'){
-return <Employee/>
+return <Employee currentUser={this.state.currentUser}/>
 }
    }
 

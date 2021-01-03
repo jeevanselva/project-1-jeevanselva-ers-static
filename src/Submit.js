@@ -24,7 +24,7 @@ export default class Submit extends React.Component {
     }
 
     try {
-      let response = await fetch("http://localhost:8080/ers/login", {
+      let response = await fetch("http://localhost:8080/ers/submit", {
         method: "POST",
         body: JSON.stringify(submission),
         headers: {
@@ -34,21 +34,7 @@ export default class Submit extends React.Component {
 
       let data = await response.json()
 
-      let currentUser = {
-        userId: data.userId,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        userRole: data.userRole
-      };
-
-      if (currentUser) {
-        this.props.setUser(currentUser);
-      }
-      else {
-        this.props.setValidation(false)
-      }
-
-    } catch (e) {
+    }catch (e) {
       console.log("Internal error")
     }
   }
@@ -79,7 +65,6 @@ export default class Submit extends React.Component {
   }
 
 
-
   render() {
 
     return (
@@ -99,17 +84,17 @@ export default class Submit extends React.Component {
 
             <div class="form-group">
               <label for="inputAmount">Amount</label>
-              <input type="text" class="form-control" id="inputAmount" placeholder="Enter Amount" name="amount"onChange={this.handleChange}/>
+              <input type="text" className="form-control" id="inputAmount" placeholder="Enter Amount" name="amount" onChange={this.handleChange}/>
             </div>
 
             <div class="form-group">
               <label for="inputText">Description</label>
-              <input type="text-area" class="form-control" id="inputText" name="desc" onChange={this.handleChange}/>
+              <input type="text-area" className="form-control" id="inputText" name="desc" onChange={this.handleChange}/>
             </div>
 
-            <button type="submit" class="btn btn-success" onSubmit={this.handleChange}>Submit</button>
+            <button type="submit" className="btn btn-success" onSubmit={this.handleChange}>Submit</button>
           </form>
-
+          <button class="btn btn-primary" type="button" onClick={this.props.updateSelected}>Go Back</button>
         </div>
           );
           }
