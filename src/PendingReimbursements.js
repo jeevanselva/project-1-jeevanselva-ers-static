@@ -67,8 +67,8 @@ rows = props.rows
               <StyledTableCell align="right">{row.description}</StyledTableCell>
               <StyledTableCell align="right">{row.dateSubmitted}</StyledTableCell>
               <StyledTableCell align="right">
-              <button type="button" onClick={this.handleSubmit} class="btn btn-success">Approve</button></StyledTableCell>
-              <button type="button" onClick={this.handleSubmit} class="btn btn-danger">Decline</button>
+              <button type="submit" onClick={props.handleApproval} class="btn btn-success" value={row.reimbursementId} name="approved">Approve</button></StyledTableCell>
+              <button type="submit" onClick={props.handleDecline} class="btn btn-danger" value={row.reimbursementId} name="declined">Decline</button>
             </StyledTableRow>
           ))}
         </TableBody>

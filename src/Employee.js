@@ -8,7 +8,7 @@ export default class Employee extends React.Component {
     super(props);
     this.state = {
       selected: '',
-      rows: []
+      pastRows: []
 
     }
     this.updateSelected = this.updateSelected.bind(this)
@@ -58,7 +58,7 @@ export default class Employee extends React.Component {
       let data = await response.json()
       let list = data.employeeList
         this.setState({
-          rows: list
+          pastRows: list
         });
             
     } catch (e) {
@@ -71,7 +71,7 @@ export default class Employee extends React.Component {
 
   render() {
     if (this.state.selected === 'past') {
-      return <PastTable rows={this.state.rows} updateSelected={this.updateSelected} />
+      return <PastTable rows={this.state.pastRows} updateSelected={this.updateSelected} />
     }
     else if (this.state.selected === 'submit') {
       return <Submit updateSelected={this.updateSelected}/>

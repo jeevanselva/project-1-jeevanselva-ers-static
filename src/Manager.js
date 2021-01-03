@@ -3,29 +3,34 @@ import PendingTable from './PendingReimbursements.js';
 import AllTable from './AllReimbursements.js';
 
 
-export default class Employee extends React.Component {
+export default class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: '',
-      rows: []
+      pendingRows: [],
+      allRows: [],
+      pendingChanged: true 
     }
-    this.updateSelected = this.updateSelected.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.updateSelected = this.updateSelected.bind(this);
+    this.handleDecline = this.handleDecline.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  this.handleApproval = this.handleApproval.bind(this);
+
   }
 
   handleClick(e) {
     let targetName = e.target.name;
 
     if (targetName === "new") {
-      this.getPastData("new")
+      this.getPendingData()
       this.setState(
         {
           selected: "new"
         });
     }
     else if (targetName === "all") {
-      this.getPastData("all")
+      this.getAllData()
       this.setState(
         {
           selected: "all"
@@ -34,67 +39,130 @@ export default class Employee extends React.Component {
 
   }
 
+  async handleApproval(e){
+    e.preventDefault();
+    let changed = this.state.pendingChanged
+    let value = e.target.value
+    let resolved = {
+      reimbursementId: value,
+      status: "approved",
+      resolverId: this.props.currentUser.userId
+    }
 
-  async getPastData(option) {
+  try {
+    let response = await fetch("http://localhost:8080/ers/resolve", {
+      method: "POST",
+      body: JSON.stringify(resolved),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-    if (option==='new') {
+    let data = await response.json()
+
+    this.setState({
+      pendingChanged: !(this.state.pendingChanged)
+    })
+
+  }catch (e) {
+    console.log("Internal error")
+  }
+}
+
+
+  async handleDecline(e){
+    e.preventDefault();
+    let changed = this.state.pendingChanged
+    let value = e.target.value
+    let resolved = {
+      reimbursementId: value,
+      status: "declined",
+      resolverId: this.props.currentUser.userId
+    }
+
+  try {
+    let response = await fetch("http://localhost:8080/ers/resolve", {
+      method: "POST",
+      body: JSON.stringify(resolved),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    let data = await response.json()
+
+    this.setState({
+      pendingChanged: !(this.state.pendingChanged)
+    })
+
+  }catch (e) {
+    console.log("Internal error")
+  }
+
+}
+
+  async getPendingData() {
+    
     try {
       let response = await fetch("http://localhost:8080/ers/resolve", {
-        method: "GET"}
+        method: "GET"
+      }
       );
 
       let data = await response.json()
-      let list = data.employeeList
-        this.setState({
-          rows: list
-        });
-            
-    } catch (e) {
-      console.log(e.stack)
-    }
-  } else if (option==='all') {
-    try {
-      let response = await fetch("http://localhost:8080/ers/all", {
-        method: "GET",
+      let list = data.list
+      this.setState({
+        pendingRows: list
       });
 
-      let data = await response.json()
-      let list = data.employeeList
-        this.setState({
-          rows: list
-        });
-            
     } catch (e) {
       console.log(e.stack)
     }
   }
 
-  }
 
-  updateSelected() {
-    this.setState(
-      {
-        selected:''
-      }
+async getAllData() {
+  try {
+    let response = await fetch("http://localhost:8080/ers/all", {
+      method: "GET",
+    });
+
+    let data = await response.json()
+    let list = data.list
+    this.setState({
+      allRows: list
+    });
+
+  } catch (e) {
+    console.log(e.stack)
+  }
+}
+
+
+updateSelected() {
+  this.setState(
+    {
+      selected: ''
+    }
+  );
+
+}
+
+
+render() {
+  if (this.state.selected === 'new') {
+    return <PendingTable rows={this.state.pendingRows} updateSelected={this.updateSelected} currentUser={this.props.currentUser} handleAprroval={this.handleApproval} handleDecline={this.handleDecline} />
+  }
+  else if (this.state.selected === 'all') {
+    return <AllTable rows={this.state.allRows} updateSelected={this.updateSelected} />
+  } else {
+    return (
+      <div>
+        <h3>Welcome {this.props.currentUser.firstName}</h3>
+        <button class="btn btn-primary" type="button" name="new" onClick={this.handleClick}>New Reimbursements</button>
+        <button class="btn btn-primary" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
+      </div>
     );
-
   }
-
-
-  render() {
-    if (this.state.selected === 'new') {
-      return <PendingTable rows={this.state.rows} updateSelected={this.updateSelected}/>
-    }
-    else if (this.state.selected === 'all') {
-      return <AllTable rows={this.state.rows} updateSelected={this.updateSelected}/>
-    } else {
-      return (
-        <div>
-          <h3>Welcome {this.props.currentUser.firstName}</h3>
-          <button class="btn btn-primary" type="button" name="new" onClick={this.handleClick}>New Reimbursements</button>
-          <button class="btn btn-primary" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
-        </div>
-      );
-    }
-  }
+}
 }

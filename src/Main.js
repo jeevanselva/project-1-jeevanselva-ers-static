@@ -13,10 +13,10 @@ import Employee from './Employee.js';
 
 
   render(){
-if (this.props.currentUser.userRole==='manager'){
+if (this.state.currentUser.userRole==='manager'){
   return <Manager currentUser={this.state.currentUser}/>
 }
-else if (this.props.currentUser.userRole==='employee'){
+else if (this.state.currentUser.userRole==='employee'){
 return <Employee currentUser={this.state.currentUser}/>
 }
    }
