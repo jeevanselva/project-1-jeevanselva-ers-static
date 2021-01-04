@@ -33,6 +33,9 @@ export default class Employee extends React.Component {
           selected: "past"
         });
     }
+    else if (targetName ==="logout"){
+      this.props.updateLogin(false);
+    }
 
   }
 
@@ -95,7 +98,7 @@ export default class Employee extends React.Component {
             <button class="btn btn-warning btn-lg" type="button" name="past" onClick={this.handleClick}>View Past Reimbursements</button>
             <br/>
             <br/>
-             <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.logOut}>Log Out</button></center>
+             <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.handleClick}>Log Out</button></center>
     
         </div>
        

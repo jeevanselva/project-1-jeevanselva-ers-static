@@ -7,17 +7,15 @@ export default class Manager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: '',
+      selected: "",
       pendingRows: [],
       allRows: [],
-      currentState: true 
 
     }
     this.updateSelected = this.updateSelected.bind(this);
     this.handleDecline = this.handleDecline.bind(this);
     this.handleClick = this.handleClick.bind(this);
   this.handleApproval = this.handleApproval.bind(this);
-  this.updateState=this.updateState.bind(this);
 
   }
 
@@ -37,6 +35,9 @@ export default class Manager extends React.Component {
         {
           selected: "all"
         });
+    }
+    else if(targetName == "logout"){
+      this.props.updateLogin(false);
     }
 
   }
@@ -62,21 +63,13 @@ export default class Manager extends React.Component {
 
     let data = await response.json()
 
-    this.updateState();
+  
 
   }catch (e) {
     console.log("Internal error")
   }
+  this.updateSelected();
 }
-
-updateState(){
-  let currentState = this.state.currentState;
-  let newState = !currentState;
-  this.setState({
-    currentState:newState
-  });
-}
-
 
 
   async handleDecline(e){
@@ -99,12 +92,12 @@ updateState(){
     });
 
     let data = await response.json()
-    this.updateState();
+    
 
   }catch (e) {
     console.log("Internal error")
   }
-
+  this.updateSelected()
 }
 
   async getPendingData() {
@@ -148,7 +141,7 @@ async getAllData() {
 updateSelected() {
   this.setState(
     {
-      selected: ''
+      selected: ""
     }
   );
 
@@ -171,7 +164,7 @@ render() {
         <button class="btn btn-warning btn-lg" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
         <br/>
         <br/>
-        <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.logOut}>Log Out</button></center>
+        <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.handleClick}>Log Out</button></center>
       </div>
     );
   }

@@ -31,6 +31,7 @@ try {
 
   let data = await response.json()
    
+
   let currentUser = {
       userId: data.userId,
       firstName: data.firstName,
@@ -45,7 +46,7 @@ try {
     this.props.setValidation(false)
   }
 
-  
+  this.props.updateLogin(true);
 
 } catch (e) {
   console.log("Internal error")

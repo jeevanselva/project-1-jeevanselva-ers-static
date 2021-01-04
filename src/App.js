@@ -29,7 +29,7 @@ setUser(val) {
 updateLogin(val) {
   this.setState(
     {
-      loggeedIn: val
+      loggedIn: val
 
     }
   )}
@@ -44,14 +44,14 @@ updateLogin(val) {
 
 
   render(){
-if (this.state.unvalidated && !this.state.currentUser){
-  return <div class="app-container"><Login setUser={this.setUser} updateLoginStatus={this.updateLogin}/></div>
+if (this.state.loggedIn){
+  return <div class="app-container"><Main currentUser={this.state.currentUser} updateLogin={this.updateLogin}/></div>
 }
-else if (this.state.currentUser) {
-return <div class="app-container"><Main currentUser={this.state.currentUser} updateLoginStatus={this.updateLogin}/></div>
+else if (!this.state.loggedIn) {
+  return <div class="app-container"><Login setUser={this.setUser} updateLogin={this.updateLogin}/></div>
+}
 }
    }
 
-}
 
   

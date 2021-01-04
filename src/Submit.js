@@ -37,7 +37,7 @@ export default class Submit extends React.Component {
       });
 
       let data = await response.json()
-      this.props.updateState()
+      this.props.updateSelected()
 
     } catch (e) {
       console.log("Internal error")

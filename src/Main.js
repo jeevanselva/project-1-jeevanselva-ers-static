@@ -15,11 +15,11 @@ import Grid from '@material-ui/core/Grid';
 
   render(){
 if (this.state.currentUser.userRole==='manager'){
-  return <Manager currentUser={this.state.currentUser}/>
+  return <Manager currentUser={this.state.currentUser} updateLogin={this.props.updateLogin}/>
  
 }
 else if (this.state.currentUser.userRole==='employee'){
-return <Employee currentUser={this.state.currentUser}/>
+return <Employee currentUser={this.state.currentUser} updateLogin={this.props.updateLogin}/>
 }
    }
 
