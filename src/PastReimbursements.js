@@ -67,14 +67,14 @@ rows = props.rows
               <StyledTableCell align="right">{row.description}</StyledTableCell>
               <StyledTableCell align="right">{row.dateSubmitted}</StyledTableCell>
               <StyledTableCell align="right">{row.status}</StyledTableCell>
-              <StyledTableCell align="right">{row.resolvedId}</StyledTableCell>
-              <StyledTableCell align="right">{row.resId}</StyledTableCell>
+              <StyledTableCell align="right">{row.dateResolved}</StyledTableCell>
+              <StyledTableCell align="right">{row.resolverId}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-    <button class="btn btn-primary" type="button" onClick={props.updateSelected}>Go Back</button>
+    <button class="btn btn-secondary" type="button" onClick={props.updateSelected}>Go Back</button>
     </div>
   );
 }

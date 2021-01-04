@@ -76,12 +76,12 @@ try {
 return(
     <form>
     <div className="input-field">
-  <TextField  label="User Name" variant="outlined" name="user" onChange={this.handleChange} />
+  <TextField  label="User Name" variant="outlined" name="user" onChange={this.handleChange} color="secondary"/>
   </div>
   <div className="input-field">
-  <TextField  label="Password" variant="outlined" type="password" name="pass" onChange={this.handleChange}/>
+  <TextField  label="Password" variant="outlined" type="password" name="pass" onChange={this.handleChange} color="secondary"/>
 </div>
-<button type="submit" onClick={this.handleSubmit} class="btn btn-primary btn-lg">Login</button>
+<center><button type="submit" onClick={this.handleSubmit} class="btn btn-outline-danger btn-lg">Login</button></center>
 </form>
 );
 }

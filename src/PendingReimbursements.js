@@ -74,7 +74,7 @@ rows = props.rows
         </TableBody>
       </Table>
     </TableContainer>
-    <button class="btn btn-primary" type="button" onClick={props.updateSelected}>Go Back</button>
+    <button class="btn btn-secondary" type="button" onClick={props.updateSelected}>Go Back</button>
     </div>
   );
 }

@@ -8,11 +8,13 @@ export default class Employee extends React.Component {
     super(props);
     this.state = {
       selected: '',
-      pastRows: []
-
+      pastRows: [],
+      currentState: false,
+      currentUser: props.currentUser
     }
-    this.updateSelected = this.updateSelected.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.updateSelected = this.updateSelected.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.updateState=this.updateState.bind(this);
   }
 
   handleClick(e) {
@@ -34,10 +36,18 @@ export default class Employee extends React.Component {
 
   }
 
+  updateState(){
+    let currentState = this.state.currentState;
+    let newState = !currentState;
+    this.setState({
+      currentState:newState
+    });
+  }
+
   updateSelected(select) {
     this.setState(
       {
-        selected:''
+        selected: ''
       }
     );
 
@@ -57,10 +67,10 @@ export default class Employee extends React.Component {
 
       let data = await response.json()
       let list = data.employeeList
-        this.setState({
-          pastRows: list
-        });
-            
+      this.setState({
+        pastRows: list
+      });
+
     } catch (e) {
       console.log(e.stack)
     }
@@ -71,18 +81,24 @@ export default class Employee extends React.Component {
 
   render() {
     if (this.state.selected === 'past') {
-      return <PastTable rows={this.state.pastRows} updateSelected={this.updateSelected} />
+      return <PastTable rows={this.state.pastRows} updateSelected={this.updateSelected} updateState={this.updateState}/>
     }
     else if (this.state.selected === 'submit') {
-      return <Submit updateSelected={this.updateSelected}/>
+      return <Submit updateSelected={this.updateSelected} updateState={this.updateState} currentUser={this.state.currentUser} />
     } else {
       return (
         <div>
           <h3>Welcome {this.props.currentUser.firstName}</h3>
-          <button class="btn btn-primary" type="button" name="submit" onClick={this.handleClick}>Submit New Reimbursement</button>
-          <button class="btn btn-primary" type="button" name="past" onClick={this.handleClick}>View Past Reimbursements</button>
-          <button class="btn btn-primary" type="button" name="logout" onClick={this.logOut}>Log Out</button>
+          <button class="btn btn-warning btn-lg" type="button" name="submit" onClick={this.handleClick}>Submit New Reimbursement</button>
+          <br/>
+          <br/>
+            <button class="btn btn-warning btn-lg" type="button" name="past" onClick={this.handleClick}>View Past Reimbursements</button>
+            <br/>
+            <br/>
+             <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.logOut}>Log Out</button></center>
+    
         </div>
+       
       );
     }
   }

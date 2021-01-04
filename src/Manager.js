@@ -10,12 +10,14 @@ export default class Manager extends React.Component {
       selected: '',
       pendingRows: [],
       allRows: [],
-      pendingChanged: true 
+      currentState: true 
+
     }
     this.updateSelected = this.updateSelected.bind(this);
     this.handleDecline = this.handleDecline.bind(this);
     this.handleClick = this.handleClick.bind(this);
   this.handleApproval = this.handleApproval.bind(this);
+  this.updateState=this.updateState.bind(this);
 
   }
 
@@ -60,14 +62,21 @@ export default class Manager extends React.Component {
 
     let data = await response.json()
 
-    this.setState({
-      pendingChanged: !(this.state.pendingChanged)
-    })
+    this.updateState();
 
   }catch (e) {
     console.log("Internal error")
   }
 }
+
+updateState(){
+  let currentState = this.state.currentState;
+  let newState = !currentState;
+  this.setState({
+    currentState:newState
+  });
+}
+
 
 
   async handleDecline(e){
@@ -90,10 +99,7 @@ export default class Manager extends React.Component {
     });
 
     let data = await response.json()
-
-    this.setState({
-      pendingChanged: !(this.state.pendingChanged)
-    })
+    this.updateState();
 
   }catch (e) {
     console.log("Internal error")
@@ -159,8 +165,13 @@ render() {
     return (
       <div>
         <h3>Welcome {this.props.currentUser.firstName}</h3>
-        <button class="btn btn-primary" type="button" name="new" onClick={this.handleClick}>New Reimbursements</button>
-        <button class="btn btn-primary" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
+        <button class="btn btn-warning btn-lg" type="button" name="new" onClick={this.handleClick}>New Reimbursements</button>
+        <br/>
+        <br/>
+        <button class="btn btn-warning btn-lg" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
+        <br/>
+        <br/>
+        <center> <button class="btn btn-dark" type="button" name="logout" onClick={this.logOut}>Log Out</button></center>
       </div>
     );
   }

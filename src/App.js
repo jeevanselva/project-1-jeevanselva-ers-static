@@ -1,7 +1,8 @@
 import React from 'react';
 import Login from './Login.js';
-import './login.css';
+import './app.css';
 import Main from './Main.js';
+
 
  export default class App extends React.Component {
   constructor(props){
@@ -44,10 +45,10 @@ updateLogin(val) {
 
   render(){
 if (this.state.unvalidated && !this.state.currentUser){
-  return <Login setUser={this.setUser} updateLoginStatus={this.updateLogin}/>
+  return <div class="app-container"><Login setUser={this.setUser} updateLoginStatus={this.updateLogin}/></div>
 }
 else if (this.state.currentUser) {
-return <Main currentUser={this.state.currentUser} updateLoginStatus={this.updateLogin}/>
+return <div class="app-container"><Main currentUser={this.state.currentUser} updateLoginStatus={this.updateLogin}/></div>
 }
    }
 

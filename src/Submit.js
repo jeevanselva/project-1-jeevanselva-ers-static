@@ -1,10 +1,14 @@
+import TextField from '@material-ui/core/TextField';
 import React from 'react';
-
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 export default class Submit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       amount: 0,
       description: '',
       type: null
@@ -33,8 +37,9 @@ export default class Submit extends React.Component {
       });
 
       let data = await response.json()
+      this.props.updateState()
 
-    }catch (e) {
+    } catch (e) {
       console.log("Internal error")
     }
   }
@@ -69,33 +74,45 @@ export default class Submit extends React.Component {
 
     return (
 
-        <div>
-          <form>
+      <div>
+        <form>
 
-            <div class="dropdown">
-              <label for="loanType">Reimbursement Type: </label>
-              <select id="loanType" name="type" onChange={this.handleChange}>
-                <option id="loan-type-lodging" value="lodging">Lodging</option>
-                <option id="loan-type-travel" value="travel"> Travel</option>
-                <option id="loan-type-food" value="food">Food</option>
-                <option id="loan-type-other" value="Other">Other</option>
-              </select>
-            </div>
+    
+    
+          
+        <InputLabel id="demo-simple-select-outlined-label">Reimbursement Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          onChange={this.handleChange}
+          label="Type"
+          name="type" color="secondary"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={"Lodging"}>Lodging</MenuItem>
+          <MenuItem value={"travel"}>Travel</MenuItem>
+          <MenuItem value={"food"}>Food</MenuItem>
+          <MenuItem value={"other"}>Other</MenuItem>
+        </Select>
+          <br/>
+          <br/>
+        
+             <div>
+            <TextField label="Amount" placeholder="Enter Amount" variant="outlined" type="text" onChange={this.handleChange} name="amount" color="secondary" />
+          </div>
+          <br />
+          <div>
+            
+            <TextField id="outlined-textarea" label="Description" placeholder="Enter description" multiline variant="outlined" name="desc" onChange={this.handleChange} color="secondary" />
+          </div>
+          <br/>
 
-            <div class="form-group">
-              <label for="inputAmount">Amount</label>
-              <input type="text" className="form-control" id="inputAmount" placeholder="Enter Amount" name="amount" onChange={this.handleChange}/>
-            </div>
+          <button type="submit" className="btn btn-success btn-lg" onClick={this.handleSubmit}>Submit</button>
+        </form>
 
-            <div class="form-group">
-              <label for="inputText">Description</label>
-              <input type="text-area" className="form-control" id="inputText" name="desc" onChange={this.handleChange}/>
-            </div>
-
-            <button type="submit" className="btn btn-success" onSubmit={this.handleChange}>Submit</button>
-          </form>
-          <button class="btn btn-primary" type="button" onClick={this.props.updateSelected}>Go Back</button>
-        </div>
-          );
-          }
- }
+      </div>
+    );
+  }
+}
