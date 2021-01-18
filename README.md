@@ -86,6 +86,8 @@ The Expense Reimbursement System (ERS) will manage the process of reimbursing em
 #### Step 4
 > access http://localhost:3000 on web browser
 
+![alt text](https://github.com/jeevanselva/project-1-jeevanselva-ers-static/blob/main/snapshot.png?raw=true)
+
 ## Usage
 
 * User can log in according to credentials stored in the database
