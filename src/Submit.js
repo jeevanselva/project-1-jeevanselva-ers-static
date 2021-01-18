@@ -27,7 +27,7 @@ export default class Submit extends React.Component {
     }
 
     try {
-      let response = await fetch("http://localhost:8080/ers/submit", {
+      let response = await fetch("http://localhost:8090/ers/submit", {
         method: "POST",
         body: JSON.stringify(submission),
         headers: {

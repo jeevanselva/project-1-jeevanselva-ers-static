@@ -60,7 +60,7 @@ export default class Employee extends React.Component {
   async getPastData() {
 
     try {
-      let response = await fetch("http://localhost:8080/ers/past", {
+      let response = await fetch("http://localhost:8090/ers/past", {
         method: "POST",
         body: JSON.stringify(this.props.currentUser),
         headers: {
