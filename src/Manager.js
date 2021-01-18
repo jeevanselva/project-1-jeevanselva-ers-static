@@ -36,7 +36,7 @@ export default class Manager extends React.Component {
           selected: "all"
         });
     }
-    else if(targetName == "logout"){
+    else if(targetName === "logout"){
       this.props.updateLogin(false);
     }
 
@@ -44,7 +44,6 @@ export default class Manager extends React.Component {
 
   async handleApproval(e){
     e.preventDefault();
-    let changed = this.state.pendingChanged
     let value = e.target.value
     let resolved = {
       reimbursementId: value,
@@ -74,7 +73,6 @@ export default class Manager extends React.Component {
 
   async handleDecline(e){
     e.preventDefault();
-    let changed = this.state.pendingChanged
     let value = e.target.value
     let resolved = {
       reimbursementId: value,
@@ -158,7 +156,7 @@ render() {
     return (
       <div>
         <h3>Welcome {this.props.currentUser.firstName}</h3>
-        <button class="btn btn-warning btn-lg" type="button" name="new" onClick={this.handleClick}>New Reimbursements</button>
+        <button class="btn btn-warning btn-lg" type="button" name="new" onClick={this.handleClick}>New Submissions</button>
         <br/>
         <br/>
         <button class="btn btn-warning btn-lg" type="button" name="all" onClick={this.handleClick}>View All Reimbursements</button>
